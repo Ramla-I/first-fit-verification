@@ -35,7 +35,7 @@ verus! {
         // If the bit was not previously set, setting the bit adds 2^k.
         assert(forall|i: u64, k: u64| #![auto] k < 64 ==> (i & (1u64 << k) == 0 <==> i | (1u64 << k) == add(i, 1u64 << k))) by (bit_vector);
         // Setting the bit, whether changing anything or not, always results in the bit reading 1 afterwards.
-        assert(forall|i: u64, k: u64| #![auto] k < 64 ==> ((i | (1u64 << k)) & (1u64 << k) > 0)) by (bit_vector);
+        assert(forall|i: u64, k: u64| #![auto] k < 64 ==> ((i | (1u64 << k)) & (1u64 << k) > 0)) by (bit_vector); // R: are the parentheses correct?
 
         // Clear bit function properties
         // If the bit was previously cleared, clearing the bit does NOT change anything.
@@ -43,7 +43,7 @@ verus! {
         // If the bit was not previously cleared, clearing the bit subtracts 2^k.
         assert(forall|i: u64, k: u64| #![auto] k < 64 ==> (i & (1u64 << k) > 0 <==> i & !(1u64 << k) == sub(i, 1u64 << k))) by (bit_vector);
         // Clearing the bit, whether changing anything or not, always results in the bit reading 0 afterwards.
-        assert(forall|i: u64, k: u64| #![auto] k < 64 ==> ((i & !(1u64 << k)) & (1u64 << k) == 0)) by (bit_vector);
+        assert(forall|i: u64, k: u64| #![auto] k < 64 ==> ((i & !(1u64 << k)) & (1u64 << k) == 0)) by (bit_vector); // R: parentheses?
 
         // Relationship between bitshifting and addition
         assert(forall|i: u64, k: u64| #![auto] k < 63 ==> (i << k) << 1u64 == i << add(k, 1u64)) by (bit_vector);
